@@ -1,18 +1,30 @@
 import React from 'react';
 import { Navbar as NavBar, Container, Button, Nav} from 'react-bootstrap';
 import { useNavigate} from 'react-router-dom';
+import { MdShoppingCart, MdPerson  } from 'react-icons/md';
 
-function Navbar () {
 
+function Navbar ({isLogedIn}) {
     const navigate = useNavigate();
+
+    const iconCursor = {cursor: 'pointer'};
 
     return (
         <NavBar>
             <Container>
                 <NavBar.Brand>eShop</NavBar.Brand>
                 <Nav>
-                    <Button onClick={() => navigate('/auth/login')} className='me-2'>Login</Button>
-                    <Button onClick={() => navigate('/auth/register')} variant='outline-primary'>Register</Button>
+                    {isLogedIn ?
+                    <>
+                    <MdShoppingCart style={iconCursor} onClick= {() => navigate('/carts')} className='me-3' />
+                    <MdPerson style={iconCursor} onClick= {() => navigate('/profile')} className='me-3'/>
+                    </>
+                :
+                <>
+                <Button onClick={() => navigate('/auth/login')} className='me-2'>Login</Button>
+                <Button onClick={() => navigate('/auth/register')} variant='outline-primary'>Register</Button>
+                </>
+                }
                 </Nav>
             </Container>
         </NavBar>
